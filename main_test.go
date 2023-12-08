@@ -60,6 +60,7 @@ func serverGetHandler(t *testing.T, r string) (int, string) {
 
 	body, err := io.ReadAll(resp.Body)
 	require.NoError(t, err)
+	assert.NotEmpty(t, body, "Response can't be empty")
 
 	return resp.StatusCode, string(body)
 }
