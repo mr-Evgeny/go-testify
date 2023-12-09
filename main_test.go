@@ -60,7 +60,7 @@ func serverGetHandler(t *testing.T, r string) (int, string) {
 
 	body, err := io.ReadAll(resp.Body)
 	require.NoError(t, err)
-	assert.NotEmpty(t, body, "Response can't be empty")
+	require.NotEmpty(t, body, "Response can't be empty")
 
 	return resp.StatusCode, string(body)
 }
@@ -72,7 +72,7 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 	assert.Equal(t, http.StatusOK, status, "expected OK Status")
 
 	cafes := strings.Split(body, ",")
-	assert.Equal(t, len(cafes), totalCount, "Result count eq to total count")
+	require.Equal(t, len(cafes), totalCount, "Result count eq to total count")
 	assert.Equal(t, cafes, cafeList["moscow"])
 }
 
@@ -83,7 +83,7 @@ func TestMainHandlerWhenCountEqualToTwo(t *testing.T) {
 	assert.Equal(t, http.StatusOK, status, "expected 200 Status")
 
 	cafes := strings.Split(body, ",")
-	assert.Equal(t, len(cafes), reqCount, "Result count eq to req count")
+	require.Equal(t, len(cafes), reqCount, "Result count eq to req count")
 	assert.Equal(t, cafes, cafeList["moscow"][:reqCount])
 }
 
